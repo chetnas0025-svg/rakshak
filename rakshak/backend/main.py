@@ -67,12 +67,11 @@ app.add_middleware(
 # Path normalizer middleware: handles Vercel serverless /api/index.py prefix
 @app.middleware("http")
 async def normalize_api_path(request: Request, call_next):
-    matched_path = request.headers.get("x-matched-path")
-    if matched_path:
-        clean_path = matched_path.split("?")[0]
-        request.scope["path"] = clean_path
-    elif "/api/index.py" in request.scope.get("path", ""):
-        request.scope["path"] = request.scope["path"].replace("/api/index.py", "", 1) or "/"
+    path = request.scope.get("path", "")
+    if path.startswith("/api/index.py"):
+        request.scope["path"] = path.replace("/api/index.py", "", 1) or "/"
+    elif path.startswith("/api/index"):
+        request.scope["path"] = path.replace("/api/index", "", 1) or "/"
     return await call_next(request)
 
 

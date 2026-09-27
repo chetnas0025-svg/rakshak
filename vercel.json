@@ -4,6 +4,10 @@
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
+      "source": "/api/v1/(.*)",
+      "destination": "/api/index.py?__path=/api/v1/$1"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/index.py?__path=/api/$1"
     },
@@ -12,7 +16,7 @@
       "destination": "/api/index.py?__path=/health"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api|health).*)",
       "destination": "/index.html"
     }
   ]
