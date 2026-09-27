@@ -1,18 +1,9 @@
-# Rakshak — Hyper-Local Flash Flood Early Warning System for Hilly Regions
+# Rakshak — Hyper-Local ai Flash Flood Early Warning System for Hilly Regions
 
-[![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-000000.svg?logo=vercel)](https://hillyregion1.vercel.app)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717.svg?logo=github)](https://github.com/prxshant00/hillyregion1)
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com/)
-[![React 18](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6.svg)](https://www.typescriptlang.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-39%20passed%20(100%25)-brightgreen.svg)]()
-[![WCAG 2.1](https://img.shields.io/badge/a11y-WCAG%202.1%20AA%2FAAA-purple.svg)]()
 
 > **Smart India Hackathon 2026 — Problem Statement SIH26192**  
 > **Nodal Ministry**: Ministry of Home Affairs / National Disaster Response Force (NDRF)  
-> **Validation Case**: Mandi, Kullu, and Kangra Districts, Himachal Pradesh (Cross-referenced against documented June–August 2025 cloudburst disaster events).  
-> **Live Production System**: **[https://hillyregion1.vercel.app](https://hillyregion1.vercel.app)**
+> **Validation Case**: Mandi, Kullu, and Kangra Districts, Himachal Pradesh (Cross-referenced against documented June–August 2025 cloudburst disaster events). 
 
 ---
 
