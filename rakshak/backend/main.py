@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from rakshak.config import settings
 from rakshak.backend.api.v1.endpoints import router as api_v1_router
@@ -150,6 +150,24 @@ async def root(request: Request):
         index_file = DIST_DIR / "index.html"
         if index_file.exists():
             return FileResponse(str(index_file))
+    return {
+        "project": "Rakshak Early Warning System",
+        "problem_statement": "SIH26192 - Ministry of Home Affairs (NDRF)",
+        "docs_url": "/docs",
+        "api_v1_prefix": "/api/v1"
+    }
+
+
+@app.get("/{full_path:path}", tags=["System"])
+async def fallback_route(request: Request, full_path: str):
+    if full_path.startswith("api/") or full_path == "health" or full_path == "docs" or full_path == "openapi.json":
+        return JSONResponse(
+            status_code=404,
+            content={"detail": "API endpoint not found", "path": f"/{full_path}"}
+        )
+    index_file = DIST_DIR / "index.html"
+    if index_file.exists():
+        return FileResponse(str(index_file))
     return {
         "project": "Rakshak Early Warning System",
         "problem_statement": "SIH26192 - Ministry of Home Affairs (NDRF)",
