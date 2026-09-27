@@ -16,7 +16,7 @@
       "destination": "/api/index.py?__path=/health"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api|health|assets|favicon|manifest|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
