@@ -1,0 +1,42 @@
+# ==============================================================================
+# Rakshak Early Warning System — High-Concurrency FastAPI Backend
+# Containerized with Kilo Parallel Multi-Agent Orchestration Engine
+# ==============================================================================
+
+FROM python:3.12-slim
+
+# Prevent Python from writing .pyc files and enable unbuffered output for real-time logs
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app \
+    UVICORN_WORKERS=4 \
+    KILO_CONCURRENCY=10
+
+WORKDIR /app
+
+# Install system dependencies & curl for container health check
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy backend codebase, agent orchestrator, and tests
+COPY rakshak/ /app/rakshak/
+COPY tests/ /app/tests/
+COPY api/ /app/api/
+COPY kilo.config.json /app/kilo.config.json
+
+# Health check verifies API and Kilo engine readiness
+HEALTHCHECK --interval=15s --timeout=5s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+EXPOSE 8000
+
+# Run Uvicorn with multiple workers for high-concurrency request handling
+CMD ["sh", "-c", "uvicorn rakshak.backend.main:app --host 0.0.0.0 --port 8000 --workers ${UVICORN_WORKERS}"]

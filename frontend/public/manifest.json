@@ -1,0 +1,17 @@
+{
+  "short_name": "Rakshak",
+  "name": "Rakshak — Hyper-Local Flash Flood Early Warning System",
+  "description": "Ministry of Home Affairs / NDRF Early Warning Initiative (SIH26192)",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2306b6d4'><path d='M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z'/></svg>",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#080c14",
+  "theme_color": "#06b6d4",
+  "display": "standalone",
+  "orientation": "any"
+}

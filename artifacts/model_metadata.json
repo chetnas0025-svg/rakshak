@@ -1,0 +1,52 @@
+{
+  "model_name": "Rakshak_RandomForest_v1",
+  "model_version": "1.0.0",
+  "trained_at": "2026-09-16T03:33:45.405188Z",
+  "algorithm": "RandomForestClassifier(n_estimators=150, max_depth=10, class_weight='balanced')",
+  "features": [
+    "elevation",
+    "slope",
+    "aspect",
+    "lithology",
+    "land_cover",
+    "ndvi",
+    "soil_type",
+    "rainfall_antecedent_72h",
+    "rainfall_current_24h"
+  ],
+  "feature_importances": {
+    "rainfall_current_24h": 0.5537,
+    "rainfall_antecedent_72h": 0.3494,
+    "ndvi": 0.0435,
+    "aspect": 0.0279,
+    "elevation": 0.0124,
+    "slope": 0.0082,
+    "lithology": 0.0033,
+    "soil_type": 0.0012,
+    "land_cover": 0.0005
+  },
+  "training_window": "2022-06-01 to 2024-09-30 (Historical Himachal Pradesh baseline)",
+  "literature_benchmark": {
+    "study_name": "Yunnan Province Rainfall-Induced Landslide Random Forest Study",
+    "citation": "Cited in academic literature as benchmark precedent for 8-factor terrain-rainfall modeling; NOT our result",
+    "reported_accuracy": 0.906,
+    "reported_roc_auc": 0.954,
+    "context": "Evaluated on Yunnan regional catchment data; serving as feature schema design guide"
+  },
+  "measured_validation_metrics": {
+    "evaluation_window": "2025-06-01 to 2025-08-31 (Himachal Pradesh Monsoon Holdout)",
+    "validation_wards_count": 20,
+    "test_samples_count": 620,
+    "positive_events_count": 4,
+    "accuracy": 0.9887,
+    "precision": 0.3636,
+    "recall": 1.0,
+    "f1_score": 0.5333,
+    "roc_auc": 0.9947,
+    "pr_auc": 0.5659,
+    "true_positives": 4,
+    "false_positives": 7,
+    "true_negatives": 609,
+    "false_negatives": 0
+  }
+}

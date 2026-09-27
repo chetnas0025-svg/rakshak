@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  # Spatial & Time-Series Data Layer
+  rakshak-db:
+    image: postgis/postgis:15-3.3
+    container_name: rakshak-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: rakshak_db
+      POSTGRES_USER: rakshak
+      POSTGRES_PASSWORD: rakshak_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rakshak -d rakshak_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MQTT Telemetry Broker for ESP32 Field Nodes
+  rakshak-mqtt:
+    image: eclipse-mosquitto:2
+    container_name: rakshak-mqtt
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - mosquitto-data:/mosquitto/data
+
+  # FastAPI Backend Service with Kilo Parallel Multi-Agent Orchestrator
+  rakshak-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: rakshak-api
+    restart: unless-stopped
+    depends_on:
+      rakshak-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://rakshak:rakshak_secret@rakshak-db:5432/rakshak_db
+      ENVIRONMENT: production
+      LOG_LEVEL: INFO
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      UVICORN_WORKERS: 4
+      KILO_CONCURRENCY: 10
+      NOTIFICATION_PROVIDER: console
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # React + Leaflet Tactical Frontend (Nginx Reverse Proxy)
+  rakshak-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: rakshak-frontend
+    restart: unless-stopped
+    depends_on:
+      rakshak-api:
+        condition: service_healthy
+    ports:
+      - "5173:80"
+
+volumes:
+  pgdata:
+  mosquitto-data:

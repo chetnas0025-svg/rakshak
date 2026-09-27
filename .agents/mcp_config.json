@@ -1,0 +1,63 @@
+{
+  "mcpServers": {
+    "StitchMCP": {
+      "command": "node",
+      "args": ["C:\\Users\\Prashant V\\.gemini\\antigravity-ide\\mcp\\StitchMCP"],
+      "enabled": true,
+      "permissions": {
+        "allowAll": true,
+        "uiDesign": true,
+        "designSystem": true,
+        "screenGeneration": true
+      }
+    },
+    "github-mcp-server": {
+      "command": "node",
+      "args": ["C:\\Users\\Prashant V\\.gemini\\antigravity-ide\\mcp\\github-mcp-server"],
+      "enabled": true,
+      "permissions": {
+        "allowAll": true,
+        "codeSearch": true,
+        "prManagement": true,
+        "repoSync": true
+      }
+    },
+    "netlify": {
+      "command": "node",
+      "args": ["C:\\Users\\Prashant V\\.gemini\\antigravity-ide\\mcp\\netlify"],
+      "enabled": true,
+      "permissions": {
+        "allowAll": true,
+        "deploy": true,
+        "siteManagement": true
+      }
+    },
+    "prisma-mcp-server": {
+      "command": "node",
+      "args": ["C:\\Users\\Prashant V\\.gemini\\antigravity-ide\\mcp\\prisma-mcp-server"],
+      "enabled": true,
+      "permissions": {
+        "allowAll": true,
+        "databaseSchema": true,
+        "migrations": true
+      }
+    }
+  },
+  "orchestration": {
+    "kilo": {
+      "enabled": true,
+      "parallelWorkers": 10,
+      "allowSimultaneousExecution": true,
+      "distributedAgents": [
+        "IngestionSentinel",
+        "HydrologyReasoner",
+        "DispatchCommander",
+        "KiloParallelOrchestrator"
+      ],
+      "maxConcurrency": 16,
+      "taskDistributionPolicy": "round_robin_priority",
+      "timeoutMs": 30000,
+      "bottleneckProfiling": true
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "entries": [
+    {
+      "path": "~/.gemini/config/skills/ui-ux-pro-max"
+    },
+    {
+      "path": "~/.gemini/config/skills/frontend-design"
+    },
+    {
+      "path": "~/.gemini/config/skills/wcag-audit-patterns"
+    },
+    {
+      "path": "~/.gemini/config/skills/agent-orchestration-multi-agent-optimize"
+    },
+    {
+      "path": "~/.gemini/config/skills/ai-agents-architect"
+    },
+    {
+      "path": "~/.gemini/config/skills/3d-web-experience"
+    },
+    {
+      "path": "~/.gemini/config/skills/backend-dev-guidelines"
+    },
+    {
+      "path": "~/.gemini/config/skills/agent-evaluation"
+    },
+    {
+      "path": "~/.gemini/config/skills/llm-app-patterns"
+    }
+  ],
+  "inherits": [],
+  "exclude": [],
+  "include_only": []
+}

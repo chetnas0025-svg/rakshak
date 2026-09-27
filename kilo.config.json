@@ -1,0 +1,58 @@
+{
+  "$schema": "https://kilo.dev/schema/orchestration.v1.json",
+  "name": "rakshak-kilo-orchestrator",
+  "version": "1.5.0",
+  "description": "Kilo Parallel Multi-Agent Orchestration Engine for Mountain Catchment Flash Flood Early Warning",
+  "orchestration": {
+    "engine": "KiloParallelOrchestrator",
+    "mode": "parallel",
+    "concurrency": 10,
+    "maxWorkers": 16,
+    "boundedSemaphore": true,
+    "distributedPipeline": {
+      "agents": [
+        {
+          "name": "IngestionSentinel",
+          "role": "Telemetry & LoRaWAN 868.1MHz Quality Guardian",
+          "concurrency": "parallel",
+          "tools": ["audit_sensor_telemetry"]
+        },
+        {
+          "name": "HydrologyReasoner",
+          "role": "GSI I-D Slope Physics & Manning Hydraulic Velocity Engine",
+          "concurrency": "parallel",
+          "tools": ["evaluate_hydrological_physics"]
+        },
+        {
+          "name": "DispatchCommander",
+          "role": "OASIS CAP-India XML & Bilingual Voice Directive Generator",
+          "concurrency": "parallel",
+          "tools": ["draft_emergency_directive"]
+        }
+      ],
+      "governance": {
+        "humanInTheLoop": true,
+        "interlockSeverity": ["WATCH", "WARNING"],
+        "cryptographicVerification": "NDRF-SIG-SHA256"
+      }
+    },
+    "endpoints": {
+      "orchestrate": "POST /api/v1/agents/kilo/orchestrate",
+      "status": "GET /api/v1/agents/kilo/status",
+      "singleTriage": "POST /api/v1/agents/triage/run",
+      "approveDirective": "POST /api/v1/agents/triage/approve"
+    },
+    "profiling": {
+      "enabled": true,
+      "trackPerAgentLatency": true,
+      "trackTokenBudget": true,
+      "throughputMetric": "wards_per_second",
+      "bottleneckDetection": true
+    },
+    "docker": {
+      "service": "kilo-orchestrator",
+      "workers": 4,
+      "healthcheck": "curl -f http://localhost:8000/api/v1/agents/kilo/status || exit 1"
+    }
+  }
+}
